@@ -30,4 +30,5 @@ public class JudgeQuestionController {
         JudgeQuestion res = judgeQuestionService.findOnlyQuestionId();
         return  ApiResultHandler.buildApiResult(200,"查询成功",res);
     }
+
 }

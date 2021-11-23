@@ -1,6 +1,7 @@
 // 学生管理页面
 <template>
   <div class="all">
+    <el-button @click="$router.push({ path: '/addStudent' });">添加学生</el-button>
     <el-table :data="pagination.records" border>
       <el-table-column fixed="left" prop="studentName" label="姓名" width="180"></el-table-column>
       <el-table-column prop="institute" label="学院" width="200"></el-table-column>
@@ -28,7 +29,7 @@
     </el-pagination>
     <!-- 编辑对话框-->
     <el-dialog
-      title="编辑试卷信息"
+      title="修改学生信息"
       :visible.sync="dialogVisible"
       width="30%"
       :before-close="handleClose">

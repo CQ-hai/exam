@@ -17,4 +17,10 @@ public interface MultiQuestionService {
     int add(MultiQuestion multiQuestion);
 
     List<Integer> findBySubject(String subject,Integer pageNo);
+
+    Integer selectCountByBank(Integer bankId);
+
+    List<Integer> findByBank(Integer bankId, Integer pageNo) ;
+
+    MultiQuestion findQuestionById(Integer questionId);
 }

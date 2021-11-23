@@ -59,9 +59,9 @@
           <el-form-item label="持续时间">
             <el-input v-model="form.totalTime"></el-input>
           </el-form-item>
-          <el-form-item label="总分">
-            <el-input v-model="form.totalScore"></el-input>
-          </el-form-item>
+<!--          <el-form-item label="总分">-->
+<!--            <el-input v-model="form.totalScore"></el-input>-->
+<!--          </el-form-item>-->
           <el-form-item label="试卷类型">
             <el-input v-model="form.type"></el-input>
           </el-form-item>

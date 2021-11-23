@@ -1,7 +1,9 @@
 package com.exam.serviceimpl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.exam.entity.FillQuestion;
 import com.exam.entity.JudgeQuestion;
 import com.exam.mapper.JudgeQuestionMapper;
 import com.exam.service.JudgeQuestionService;
@@ -39,5 +41,24 @@ public class JudgeQuestionServiceImpl implements JudgeQuestionService {
     @Override
     public List<Integer> findBySubject(String subject, Integer pageNo) {
         return judgeQuestionMapper.findBySubject(subject,pageNo);
+    }
+
+    @Override
+    public Integer selectCountByBank(Integer bankId) {
+        QueryWrapper<JudgeQuestion> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("bank_id",bankId);
+        return judgeQuestionMapper.selectCount(queryWrapper);
+    }
+
+    @Override
+    public List<Integer> findByBank(Integer bankId, Integer pageNo) {
+        return judgeQuestionMapper.findByBank(bankId,pageNo);
+    }
+
+
+    @Override
+    public JudgeQuestion findQuestionById(Integer questionId) {
+
+        return judgeQuestionMapper.findByquestionId(questionId);
     }
 }

@@ -17,66 +17,66 @@
               </el-option>
             </el-select>
           </li>
-          <li v-if="optionValue == '选择题'">
-            <span>所属章节：</span>
-            <el-input
-              placeholder="请输入对应章节"
-              v-model="postChange.section"
-              class="w150"
-              clearable>
-            </el-input>
-          </li>
-          <li v-if="optionValue == '填空题'">
-            <span>所属章节：</span>
-            <el-input
-              placeholder="请输入对应章节"
-              v-model="postFill.section"
-              class="w150"
-              clearable>
-            </el-input>
-          </li>
-          <li v-if="optionValue == '判断题'">
-            <span>所属章节：</span>
-            <el-input
-              placeholder="请输入对应章节"
-              v-model="postJudge.section"
-              class="w150"
-              clearable>
-            </el-input>
-          </li>
-          <li v-if="optionValue == '选择题'">
-            <span>难度等级:</span>
-            <el-select v-model="postChange.level" placeholder="选择难度等级" class="w150">
-              <el-option
-                v-for="item in levels"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>
-          </li>
-          <li v-if="optionValue == '填空题'">
-            <span>难度等级:</span>
-            <el-select v-model="postFill.level" placeholder="选择难度等级" class="w150">
-              <el-option
-                v-for="item in levels"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>
-          </li>
-          <li v-if="optionValue == '判断题'">
-            <span>难度等级:</span>
-            <el-select v-model="postJudge.level" placeholder="选择难度等级" class="w150">
-              <el-option
-                v-for="item in levels"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>
-          </li>
+<!--          <li v-if="optionValue == '选择题'">-->
+<!--            <span>所属章节：</span>-->
+<!--            <el-input-->
+<!--              placeholder="请输入对应章节"-->
+<!--              v-model="postChange.section"-->
+<!--              class="w150"-->
+<!--              clearable>-->
+<!--            </el-input>-->
+<!--          </li>-->
+<!--          <li v-if="optionValue == '填空题'">-->
+<!--            <span>所属章节：</span>-->
+<!--            <el-input-->
+<!--              placeholder="请输入对应章节"-->
+<!--              v-model="postFill.section"-->
+<!--              class="w150"-->
+<!--              clearable>-->
+<!--            </el-input>-->
+<!--          </li>-->
+<!--          <li v-if="optionValue == '判断题'">-->
+<!--            <span>所属章节：</span>-->
+<!--            <el-input-->
+<!--              placeholder="请输入对应章节"-->
+<!--              v-model="postJudge.section"-->
+<!--              class="w150"-->
+<!--              clearable>-->
+<!--            </el-input>-->
+<!--          </li>-->
+<!--          <li v-if="optionValue == '选择题'">-->
+<!--            <span>难度等级:</span>-->
+<!--            <el-select v-model="postChange.level" placeholder="选择难度等级" class="w150">-->
+<!--              <el-option-->
+<!--                v-for="item in levels"-->
+<!--                :key="item.value"-->
+<!--                :label="item.label"-->
+<!--                :value="item.value">-->
+<!--              </el-option>-->
+<!--            </el-select>-->
+<!--          </li>-->
+<!--          <li v-if="optionValue == '填空题'">-->
+<!--            <span>难度等级:</span>-->
+<!--            <el-select v-model="postFill.level" placeholder="选择难度等级" class="w150">-->
+<!--              <el-option-->
+<!--                v-for="item in levels"-->
+<!--                :key="item.value"-->
+<!--                :label="item.label"-->
+<!--                :value="item.value">-->
+<!--              </el-option>-->
+<!--            </el-select>-->
+<!--          </li>-->
+<!--          <li v-if="optionValue == '判断题'">-->
+<!--            <span>难度等级:</span>-->
+<!--            <el-select v-model="postJudge.level" placeholder="选择难度等级" class="w150">-->
+<!--              <el-option-->
+<!--                v-for="item in levels"-->
+<!--                :key="item.value"-->
+<!--                :label="item.label"-->
+<!--                :value="item.value">-->
+<!--              </el-option>-->
+<!--            </el-select>-->
+<!--          </li>-->
           <li v-if="optionValue == '选择题'">
             <span>正确选项:</span>
             <el-select v-model="postChange.rightAnswer" placeholder="选择正确答案" class="w150">
@@ -335,7 +335,7 @@ export default {
       subject: '', //试卷名称用来接收路由参数
       postChange: { //选择题提交内容
         subject: '', //试卷名称
-        level: '', //难度等级选中值 
+        level: '', //难度等级选中值
         rightAnswer: '', //正确答案选中值
         section: '', //对应章节
         question: '', //题目
@@ -347,7 +347,7 @@ export default {
       },
       postFill: { //填空题提交内容
         subject: '', //试卷名称
-        level: '', //难度等级选中值 
+        level: '', //难度等级选中值
         answer: '', //正确答案
         section: '', //对应章节
         question: '', //题目
@@ -355,7 +355,7 @@ export default {
       },
       postJudge: { //判断题提交内容
         subject: '', //试卷名称
-        level: '', //难度等级选中值 
+        level: '', //难度等级选中值
         answer: '', //正确答案
         section: '', //对应章节
         question: '', //题目
@@ -369,6 +369,7 @@ export default {
     };
   },
   created() {
+
     this.getParams()
   },
   methods: {
@@ -409,17 +410,22 @@ export default {
     getParams() {
       let subject = this.$route.query.subject //获取试卷名称
       let paperId = this.$route.query.paperId //获取paperId
+      this.postJudge.bank_id=this.$route.query.bankId;
+      this.postJudge.bank_name=this.$route.query.bankName;
       this.paperId = paperId
       this.subject = subject
       this.postPaper.paperId = paperId
     },
+
     changeSubmit() { //选择题题库提交
       this.postChange.subject = this.subject
+      this.postChange.bank_id=this.$route.query.bank_id;
+      this.postChange.bank_name=this.$route.query.bank_name;
       this.$axios({ //提交数据到选择题题库表
         url: '/api/MultiQuestion',
         method: 'post',
         data: {
-          ...this.postChange          
+          ...this.postChange
         }
       }).then(res => { //添加成功显示提示
         let status = res.data.code
@@ -447,6 +453,8 @@ export default {
     },
     fillSubmit() { //填空题提交
       this.postFill.subject = this.subject
+      this.postFill.bank_id=this.$route.query.bank_id;
+      this.postFill.bank_name=this.$route.query.bank_name;
       this.$axios({
         url: '/api/fillQuestion',
         method: 'post',
@@ -479,6 +487,8 @@ export default {
     },
     judgeSubmit() { //判断题提交
       this.postJudge.subject = this.subject
+      this.postJudge.bank_id=this.$route.query.bank_id;
+      this.postJudge.bank_name=this.$route.query.bank_name;
       this.$axios({
         url: '/api/judgeQuestion',
         method: 'post',
@@ -584,7 +594,7 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
-      }        
+      }
     }
     .fill {
       .fillAnswer {

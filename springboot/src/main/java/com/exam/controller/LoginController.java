@@ -21,21 +21,29 @@ public class LoginController {
 
         Integer username = login.getUsername();
         String password = login.getPassword();
-        Admin adminRes = loginService.adminLogin(username, password);
-        if (adminRes != null) {
-            return ApiResultHandler.buildApiResult(200, "请求成功", adminRes);
+        if (login.getRole() == 0) {
+            Admin adminRes = loginService.adminLogin(username, password);
+            if (adminRes != null) {
+                return ApiResultHandler.buildApiResult(200, "请求成功", adminRes);
+            } else {
+                return ApiResultHandler.buildApiResult(400, "请求失败", null);
+            }
+        } else if (login.getRole() == 1) {
+            Teacher teacherRes = loginService.teacherLogin(username, password);
+            if (teacherRes != null) {
+                return ApiResultHandler.buildApiResult(200, "请求成功", teacherRes);
+            } else {
+                return ApiResultHandler.buildApiResult(400, "请求失败", null);
+            }
+        } else if (login.getRole() == 2) {
+            Student studentRes = loginService.studentLogin(username, password);
+            if (studentRes != null) {
+                return ApiResultHandler.buildApiResult(200, "请求成功", studentRes);
+            } else {
+                return ApiResultHandler.buildApiResult(400, "请求失败", null);
+            }
         }
-
-        Teacher teacherRes = loginService.teacherLogin(username,password);
-        if (teacherRes != null) {
-            return ApiResultHandler.buildApiResult(200, "请求成功", teacherRes);
-        }
-
-        Student studentRes = loginService.studentLogin(username,password);
-        if (studentRes != null) {
-            return ApiResultHandler.buildApiResult(200, "请求成功", studentRes);
-        }
-
         return ApiResultHandler.buildApiResult(400, "请求失败", null);
+
     }
 }

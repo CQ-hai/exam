@@ -73,12 +73,22 @@ export default {
     this.loading = true
   },
   // watch: {
-    
+
   // },
   methods: {
     //获取当前所有考试信息
     getExamInfo() {
-      this.$axios(`/api/exams/${this.pagination.current}/${this.pagination.size}`).then(res => {
+      const data={
+        "major":window.localStorage.getItem("major"),
+        "institute":window.localStorage.getItem("institute"),
+        "grade":window.localStorage.getItem("grade")
+      }
+      console.log(data)
+      this.$axios({
+        url:`/api/exams/my/${this.pagination.current}/${this.pagination.size}`,
+        method:"post",
+        data:data
+      }).then(res => {
         this.pagination = res.data.data
         this.loading = false
         console.log(this.pagination)

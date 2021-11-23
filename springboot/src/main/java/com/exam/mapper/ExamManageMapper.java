@@ -1,14 +1,16 @@
 package com.exam.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.exam.dto.MyExamDto;
 import com.exam.entity.ExamManage;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
 @Mapper
-public interface ExamManageMapper {
+public interface ExamManageMapper extends BaseMapper<ExamManage> {
     @Select("select * from exam_manage")
     List<ExamManage> findAll();
 
@@ -17,6 +19,9 @@ public interface ExamManageMapper {
 
     @Select("select * from exam_manage where examCode = #{examCode}")
     ExamManage findById(Integer examCode);
+
+//    @Select("select * from exam_manage where grade = #{grade} and major=#{major} and institute=#{institute}")
+//    IPage<ExamManage> findByMy(Page page,String grade,String major, String institute);
 
     @Delete("delete from exam_manage where examCode = #{examCode}")
     int delete(Integer examCode);

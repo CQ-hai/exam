@@ -3,19 +3,20 @@
   <header id="topbar">
     <el-row>
       <el-col :span="4" class="topbar-left">
-        <i class="iconfont icon-kaoshi"></i>
-        <span class="title" @click="index()">EXAM-SYSTEM</span>
+        <i class="el-icon-s-order" ></i>
+        <span class="title" @click="index()">在线考试系统</span>
       </el-col>
-      <el-col :span="20" class="topbar-right">
-        <i class="el-icon-menu" @click="toggle()"></i>
+      <el-col :span="1220" class="topbar-right">
+<!--        <i class="el-icon-menu" @click="toggle()"></i>-->
         <div class="user">
           <span>{{user.userName}}</span>
-          <img src="@/assets/img/userimg.png" class="user-img" ref="img" @click="showSetting()" />
-          <transition name="fade">
+          <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" class="user-img" @click.native="showSetting()"></el-avatar>
+<!--          <img src="@/assets/img/userimg.png" class="user-img" ref="img" @click="showSetting()" />-->
+          <transition name="fade" style="width: 100px">
             <div class="out" ref="out" v-show="login_flag">
               <ul>
                 <li><a href="javascript:;">用户信息</a></li>
-                <li><a href="javascript:;">设置</a></li>
+<!--                <li><a href="javascript:;">设置</a></li>-->
                 <li class="exit" @click="exit()"><a href="javascript:;">退出登录</a></li>
               </ul>
             </div>
@@ -36,7 +37,7 @@ export default {
       user: { //用户信息
         userName: null,
         userId: null
-      } 
+      }
     }
   },
   created() {
@@ -84,20 +85,21 @@ export default {
 #topbar {
   position: relative;
   z-index: 10;
-  background-color: #124280;
+  background-color: #fff;
   height: 80px;
   line-height: 80px;
-  color: #fff;
+  color: #5188b8;
   box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.5);
 }
 #topbar .topbar-left {
   height: 80px;
   display: flex;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.05);
+  background: #fff;
   overflow: hidden;
+  padding: 5px;
 }
-.topbar-left .icon-kaoshi {
+.topbar-left .el-icon-s-order {
   font-size: 60px;
 }
 .topbar-left .title {
@@ -105,7 +107,7 @@ export default {
   cursor: pointer;
 }
 .topbar-right {
-  display: flex;
+  float: right;
   justify-content: space-between;
   align-items: center;
 }
@@ -141,6 +143,7 @@ export default {
   list-style: none;
 }
 .user .out ul > li {
+  width: 80px;
   height: 26px;
   line-height: 26px;
 }

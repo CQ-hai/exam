@@ -10,13 +10,16 @@
         </div>
         <div class="bottom">
           <div class="container">
-            <p class="title">账号登录</p>
+<!--            <p class="title">账号登录</p>-->
+            <p class="title" v-if="role===0">管理员账号登录</p>
+            <p class="title" v-if="role===1">老师账号登录</p>
+            <p class="title" v-if="role===2">学生账号登录</p>
             <el-form
               :label-position="labelPosition"
-              label-width="80px"
+              label-width="100px"
               :model="formLabelAlign"
             >
-              <el-form-item label="用户名">
+              <el-form-item :label="title">
                 <el-input
                   v-model.number="formLabelAlign.username"
                   placeholder="请输入用户名"
@@ -42,6 +45,11 @@
                 </div>
               </div> -->
             </el-form>
+            <span>
+              <el-button type="text" v-if="role!==2" @click="title='学生用户名';role=2" >学生账户登录</el-button>
+              <el-button type="text" v-if="role!==0" @click="title='管理员用户名';role=0">管理员账户登录</el-button>
+              <el-button type="text" v-if="role!==1" @click="title='老师用户名';role=1">老师账户登录</el-button>
+            </span>
           </div>
         </div>
       </el-col>
@@ -69,9 +77,11 @@ export default {
     return {
       role: 2,
       labelPosition: "left",
+      title: "学生用户名",
       formLabelAlign: {
         username: "20154084",
         password: "123456",
+        role:2
       },
     };
   },
@@ -79,6 +89,7 @@ export default {
     //用户登录请求后台处理
     login() {
       console.log("登录操作执行-------");
+      this.formLabelAlign.role=this.role
       this.$axios({
         url: `/api/login`,
         method: "post",
@@ -102,6 +113,9 @@ export default {
               this.$router.push({ path: "/index" }); //跳转到教师用户
               break;
             case "2": //学生
+              window.localStorage.setItem("grade",resData.grade)
+              window.localStorage.setItem("institute",resData.institute)
+              window.localStorage.setItem("major",resData.major)
               this.$cookies.set("cname", resData.studentName);
               this.$cookies.set("cid", resData.studentId);
               this.$router.push({ path: "/student" });

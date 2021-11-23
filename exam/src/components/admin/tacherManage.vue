@@ -1,6 +1,7 @@
 // 教师管理页面
 <template>
   <div class="all">
+    <el-button @click="$router.push({ path: '/addTeacher' });">添加老师</el-button>
     <el-table :data="pagination.records" border>
       <el-table-column fixed="left" prop="teacherName" label="姓名" width="180"></el-table-column>
       <el-table-column prop="institute" label="学院" width="200"></el-table-column>

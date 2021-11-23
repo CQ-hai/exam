@@ -1,5 +1,6 @@
 package com.exam.serviceimpl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.exam.entity.FillQuestion;
@@ -40,4 +41,21 @@ public class FillQuestionServiceImpl implements FillQuestionService {
     public List<Integer> findBySubject(String subject, Integer pageNo) {
         return fillQuestionMapper.findBySubject(subject,pageNo);
     }
+
+    @Override
+    public List<Integer> findByBank(Integer bankId, Integer pageNo) {
+        return fillQuestionMapper.findByBank(bankId,pageNo);
+    }
+    @Override
+    public Integer selectCountByBank(Integer bankId){
+        QueryWrapper<FillQuestion>queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("bank_id",bankId);
+        return fillQuestionMapper.selectCount(queryWrapper);
+    }
+
+    @Override
+    public FillQuestion findQuestionById(Integer questionId){
+        return fillQuestionMapper.findByQuestionId(questionId);
+    }
+
 }

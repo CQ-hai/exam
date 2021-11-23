@@ -17,4 +17,10 @@ public interface JudgeQuestionService {
     int add(JudgeQuestion judgeQuestion);
 
     List<Integer> findBySubject(String subject,Integer pageNo);
+
+    Integer selectCountByBank(Integer bankId);
+
+    List<Integer> findByBank(Integer bankId, Integer pageNo) ;
+
+    JudgeQuestion findQuestionById(Integer questionId);
 }

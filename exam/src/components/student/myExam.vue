@@ -9,8 +9,8 @@
         <li><el-button type="primary" @click="search()">搜索试卷</el-button></li>
       </ul>
       <ul class="paper" v-loading="loading">
-        <li class="item" v-for="(item,index) in pagination.records" :key="index">
-          <h4 @click="toExamMsg(item.examCode)">{{item.source}}</h4>
+        <li class="item" v-for="(item,index) in pagination.records" :key="index" @click="toExamMsg(item.examCode)">
+          <h4 >{{item.source}}</h4>
           <p class="name">{{item.source}}-{{item.description}}</p>
           <div class="info">
             <i class="el-icon-loading"></i><span>{{item.examDate.substr(0,10)}}</span>
@@ -54,12 +54,23 @@ export default {
     this.loading = true
   },
   // watch: {
-    
+
   // },
   methods: {
     //获取当前所有考试信息
     getExamInfo() {
-      this.$axios(`/api/exams/${this.pagination.current}/${this.pagination.size}`).then(res => {
+      const data={
+        grade: window.localStorage.getItem("grade"),
+        institute:window.localStorage.getItem("institute"),
+        major:window.localStorage.getItem("major"),
+        name: this.key
+      }
+      this.$axios({
+        url:`/api/exams/${this.pagination.current}/${this.pagination.size}`,
+        method:'post',
+        data:data
+      }
+      ).then(res => {
         this.pagination = res.data.data
         this.loading = false
         console.log(this.pagination)

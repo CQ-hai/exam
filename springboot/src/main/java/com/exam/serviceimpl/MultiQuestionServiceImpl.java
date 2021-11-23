@@ -1,7 +1,9 @@
 package com.exam.serviceimpl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.exam.entity.FillQuestion;
 import com.exam.entity.MultiQuestion;
 import com.exam.mapper.MultiQuestionMapper;
 import com.exam.service.MultiQuestionService;
@@ -38,5 +40,20 @@ public class MultiQuestionServiceImpl implements MultiQuestionService {
     @Override
     public List<Integer> findBySubject(String subject, Integer pageNo) {
         return multiQuestionMapper.findBySubject(subject,pageNo);
+    }
+    @Override
+    public List<Integer> findByBank(Integer bankId, Integer pageNo) {
+        return multiQuestionMapper.findByBank(bankId,pageNo);
+    }
+    @Override
+    public Integer selectCountByBank(Integer bankId) {
+        QueryWrapper<MultiQuestion> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("bank_id",bankId);
+        return multiQuestionMapper.selectCount(queryWrapper);
+    }
+
+    @Override
+    public MultiQuestion findQuestionById(Integer questionId){
+        return multiQuestionMapper.findByQuestionId(questionId);
     }
 }

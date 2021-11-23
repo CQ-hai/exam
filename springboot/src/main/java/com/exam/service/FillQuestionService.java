@@ -17,4 +17,10 @@ public interface FillQuestionService {
     int add(FillQuestion fillQuestion);
 
     List<Integer> findBySubject(String subject,Integer pageNo);
+
+    Integer selectCountByBank(Integer bankId);
+
+    List<Integer> findByBank(Integer bankId, Integer pageNo) ;
+
+    FillQuestion findQuestionById(Integer questionId);
 }

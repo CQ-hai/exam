@@ -20,4 +20,8 @@ public class FillQuestion {
     private String section;
 
     private String analysis; //题目解析
+
+    private int bank_id;
+
+    private String bank_name;
 }

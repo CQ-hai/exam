@@ -1,5 +1,6 @@
 package com.exam.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.exam.entity.FillQuestion;
@@ -9,7 +10,7 @@ import java.util.List;
 
 //填空题
 @Mapper
-public interface FillQuestionMapper {
+public interface FillQuestionMapper extends BaseMapper<FillQuestion> {
 
     @Select("select * from fill_question where questionId in (select questionId from paper_manage where questionType = 2 and paperId = #{paperId})")
     List<FillQuestion> findByIdAndType(Integer paperId);
@@ -25,10 +26,17 @@ public interface FillQuestionMapper {
     FillQuestion findOnlyQuestionId();
 
     @Options(useGeneratedKeys = true,keyProperty ="questionId" )
-    @Insert("insert into fill_question(subject,question,answer,analysis,level,section) values " +
-            "(#{subject,},#{question},#{answer},#{analysis},#{level},#{section})")
+    @Insert("insert into fill_question(subject,question,answer,analysis,level,section,bank_id,bank_name) values " +
+            "(#{subject,},#{question},#{answer},#{analysis},#{level},#{section},#{bank_id},#{bank_name})")
     int add(FillQuestion fillQuestion);
 
     @Select("select questionId from fill_question where subject = #{subject} order by rand() desc limit #{pageNo}")
     List<Integer> findBySubject(String subject,Integer pageNo);
+
+    @Select("select questionId from fill_question where bank_id = #{bankId} order by rand() desc limit #{pageNo}")
+    List<Integer> findByBank(Integer bankId,Integer pageNo);
+
+
+    @Select("select * from fill_question where questionId = #{questionId}")
+    FillQuestion findByQuestionId(Integer questionId);
 }

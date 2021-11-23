@@ -1,5 +1,6 @@
 package com.exam.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.exam.entity.MultiQuestion;
@@ -12,7 +13,7 @@ import java.util.List;
 
 //选择题
 @Mapper
-public interface MultiQuestionMapper {
+public interface MultiQuestionMapper extends BaseMapper<MultiQuestion> {
     /**
      * select * from multiquestions where questionId in (
      * 	select questionId from papermanage where questionType = 1 and paperId = 1001
@@ -32,12 +33,16 @@ public interface MultiQuestionMapper {
     MultiQuestion findOnlyQuestionId();
 
     @Options(useGeneratedKeys = true,keyProperty = "questionId")
-    @Insert("insert into multi_question(subject,question,answerA,answerB,answerC,answerD,rightAnswer,analysis,section,level) " +
-            "values(#{subject},#{question},#{answerA},#{answerB},#{answerC},#{answerD},#{rightAnswer},#{analysis},#{section},#{level})")
+    @Insert("insert into multi_question(subject,question,answerA,answerB,answerC,answerD,rightAnswer,analysis,section,level,bank_id,bank_name) " +
+            "values(#{subject},#{question},#{answerA},#{answerB},#{answerC},#{answerD},#{rightAnswer},#{analysis},#{section},#{level},#{bank_id},#{bank_name})")
     int add(MultiQuestion multiQuestion);
 
     @Select("select questionId from multi_question  where subject =#{subject} order by rand() desc limit #{pageNo}")
     List<Integer> findBySubject(String subject,Integer pageNo);
 
+    @Select("select questionId from multi_question  where bank_id =#{bankId} order by rand() desc limit #{pageNo}")
+    List<Integer> findByBank(Integer bankId,Integer pageNo);
 
+    @Select("select * from multi_question where questionId = #{questionId}")
+    MultiQuestion findByQuestionId(Integer questionId);
 }

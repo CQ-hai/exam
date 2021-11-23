@@ -76,7 +76,33 @@ export default new Router({
         {
           path: '/addTeacher',
           component: () => import ('@/components/admin/addTeacher')
-        }
+        },
+        {
+          path: '/class',
+          component: () => import ('@/components/class/class')
+        },
+        {
+          path: '/addclass',
+          component: () => import ('@/components/class/addclass')
+        },
+        {
+          path: '/examBank',
+          component: () => import ('@/components/exam/index'),
+          children:[
+            {
+              path:"/",
+              component: () => import ('@/components/exam/examBank'),
+            },
+            {
+              path:"/addBank",
+              component: () => import ('@/components/exam/addBank'),
+            },
+            {
+              path: '/addAnswerChildren', //点击试卷跳转到添加题库页面
+              component: () => import('@/components/teacher/addAnswerChildren')
+            }
+          ]
+        },
       ]
     },
     {

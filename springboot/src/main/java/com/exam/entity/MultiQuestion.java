@@ -29,4 +29,8 @@ public class MultiQuestion {
 
     private Integer score;
 
+    private int bank_id;
+
+    private String bank_name;
+
 }

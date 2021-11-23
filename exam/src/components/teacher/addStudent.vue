@@ -18,7 +18,14 @@
         <el-input v-model="form.grade"></el-input>
       </el-form-item>
       <el-form-item label="班级">
-        <el-input v-model="form.clazz"></el-input>
+        <el-select v-model="form.clazz" placeholder="请选择">
+          <el-option
+            v-for="item in classOption"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id">
+          </el-option>
+        </el-select>
       </el-form-item>
       <el-form-item label="电话号码">
         <el-input v-model="form.tel"></el-input>
@@ -44,6 +51,7 @@
 export default {
   data() {
     return {
+      classOption: [],
       form: { //表单数据初始化
         studentName: null,
         grade: null,
@@ -59,7 +67,18 @@ export default {
       }
     };
   },
+  created() {
+    this.getClass();
+  },
   methods: {
+    getClass() {
+      this.$axios({
+        url:'/api/class/slectClass',
+        method: "get",
+      }).then(res=>{
+        this.classOption=res.data
+      })
+    },
     onSubmit() { //数据提交
       this.$axios({
         url: '/api/student',
@@ -80,7 +99,7 @@ export default {
     cancel() { //取消按钮
       this.form = {}
     },
-    
+
   }
 };
 </script>

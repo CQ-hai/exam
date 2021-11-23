@@ -1,7 +1,9 @@
 package com.exam.serviceimpl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.exam.dto.MyExamDto;
 import com.exam.entity.ExamManage;
 import com.exam.mapper.ExamManageMapper;
 import com.exam.service.ExamManageService;
@@ -49,5 +51,14 @@ public class ExamManageServiceImpl implements ExamManageService {
     @Override
     public ExamManage findOnlyPaperId() {
         return examManageMapper.findOnlyPaperId();
+    }
+
+    @Override
+    public IPage<ExamManage> findByMy(Page<ExamManage> page, MyExamDto myExamDto) {
+        QueryWrapper<ExamManage> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("grade",myExamDto.getGrade());
+        queryWrapper.eq("major",myExamDto.getMajor());
+        queryWrapper.eq("institute",myExamDto.getInstitute());
+        return examManageMapper.selectPage(page,queryWrapper);
     }
 }

@@ -29,7 +29,7 @@ export default {
         if(res.data.code == 200) {
           let rootData = res.data.data
           rootData.forEach((element,index) => {
-            this.tableDataX.push(`第${index + 1}次`)
+            this.tableDataX.push(element.subject)
             this.tableDataY.push(element.etScore)
           });
           let boxDom = this.$refs["box"];

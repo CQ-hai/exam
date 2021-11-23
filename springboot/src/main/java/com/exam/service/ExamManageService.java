@@ -2,6 +2,7 @@ package com.exam.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.exam.dto.MyExamDto;
 import com.exam.entity.ExamManage;
 
 import java.util.List;
@@ -23,4 +24,6 @@ public interface ExamManageService {
     int add(ExamManage exammanage);
 
     ExamManage findOnlyPaperId();
+
+    IPage<ExamManage> findByMy(Page<ExamManage> page, MyExamDto myExamDto);
 }
