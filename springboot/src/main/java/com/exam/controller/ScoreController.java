@@ -9,6 +9,8 @@ import com.exam.service.MultiQuestionService;
 import com.exam.serviceimpl.ScoreServiceImpl;
 import com.exam.util.ApiResultHandler;
 import com.exam.vo.AnswerVO;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
+@Api(tags = "成绩模块")
 public class ScoreController {
     @Autowired
     private ScoreServiceImpl scoreService;
@@ -31,12 +34,15 @@ public class ScoreController {
     @Value("${scoreforeach}")
     private Integer scoreforeach;
 
+    @ApiOperation("查询所有学生成绩")
     @GetMapping("/scores")
     public ApiResult findAll() {
         List<Score> res = scoreService.findAll();
         return ApiResultHandler.buildApiResult(200,"查询所有学生成绩",res);
     }
-//    分页
+
+
+    @ApiOperation("根据id查询某学生成绩（分页）")
     @GetMapping("/score/{page}/{size}/{studentId}")
     public ApiResult findById(@PathVariable("page") Integer page, @PathVariable("size") Integer size, @PathVariable("studentId") Integer studentId) {
         Page<Score> scorePage = new Page<>(page, size);
@@ -44,7 +50,8 @@ public class ScoreController {
         return ApiResultHandler.buildApiResult(200, "根据ID查询成绩", res);
     }
 
-//    不分页
+
+    @ApiOperation("根据id查询某学生成绩（不分页）")
     @GetMapping("/score/{studentId}")
         public ApiResult findById(@PathVariable("studentId") Integer studentId) {
         List<Score> res = scoreService.findById(studentId);
@@ -55,16 +62,8 @@ public class ScoreController {
         }
     }
 
-    @PostMapping("/score")
-    public ApiResult add(@RequestBody Score score) {
-        int res = scoreService.add(score);
-        if (res == 0) {
-            return ApiResultHandler.buildApiResult(400,"成绩添加失败",res);
-        }else {
-            return ApiResultHandler.buildApiResult(200,"成绩添加成功",res);
-        }
-    }
 
+    @ApiOperation("根据考试号查询成绩")
     @GetMapping("/scores/{examCode}")
     public ApiResult findByExamCode(@PathVariable("examCode") Integer examCode) {
         List<Score> scores = scoreService.findByExamCode(examCode);
@@ -72,6 +71,7 @@ public class ScoreController {
     }
 
 
+    @ApiOperation("程序判分")
     @PostMapping("/score/judege")
     public ApiResult judgeScore(@RequestBody Score score) {
         Integer totalScore = 0;
